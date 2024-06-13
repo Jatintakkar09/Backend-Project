@@ -1,0 +1,47 @@
+# Ignore artifacts:
+build
+coverage
+dist
+node_modules
+
+# Ignore configuration files:
+*.config.js
+*.config.ts
+*.config.json
+
+# Ignore specific directories:
+public
+static
+
+# Ignore specific files:
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore logs:
+*.log
+
+# Ignore specific file types:
+*.min.js
+*.min.css
+*.map
+*.snap
+
+# Ignore OS generated files:
+.DS_Store
+Thumbs.db
+
+# Ignore specific dotfiles:
+.env
+.env.local
+.env.*.local
+.vscode
+
+# Ignore specific folders in nested directories:
+**/node_modules
+**/dist
+**/build
+
+# Ignore custom patterns:
+temp
+tmp
