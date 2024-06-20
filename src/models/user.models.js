@@ -54,11 +54,28 @@ const userSchema = new Schema(
 // userSchema.pre("save",()=>{})  we dont give callback in hooks like this not a good practice
 
 userSchema.pre("save", async function (next) {
-    if (this.isModified("Password")) {
-        
-    }
+    if (!this.isModified("Password")) return next();
     this.Password = bcrypt.hash(this.Password,10)  
     next()
 }) // time lagta hai thats why
+
+// methods creation 
+
+userSchema.methods.isPasswordCorrect= async function 
+(password){
+  return await bcrypt.compare(password,this.Password)
+}
+// the above is a way in which the userdata that password is provided
+//is similar to the password that is saved
+
+
+
+// making methods to make access tokens and refresh tokens
+
+
+
+
+
+
 
 export const User = mongoose.model("User", userSchema);
