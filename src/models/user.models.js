@@ -52,7 +52,7 @@ const userSchema = new Schema(
 );
 
 // userSchema.pre("save",()=>{})  we dont give callback in hooks like this not a good practice
-
+//basically were just hashing the password before saving it in the db
 userSchema.pre("save", async function (next) {
   if (!this.isModified("Password")) return next();
   this.Password = bcrypt.hash(this.Password, 10);
