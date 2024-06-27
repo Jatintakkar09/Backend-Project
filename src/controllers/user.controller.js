@@ -1,6 +1,6 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
-import {ApiError} from "../utils/ApiError.js"
-
+import { ApiError } from "../utils/ApiError.js";
+import {User} from "../models/user.models.js"
 //  things needed for registering a user or checkpoints
 
 // get user details from frontend
@@ -13,23 +13,39 @@ import {ApiError} from "../utils/ApiError.js"
 //  check for user creation
 // return response or error
 
-
-
 const registerUser = asyncHandler(async (req, res) => {
- const {fullName,email,username,password}=req.body
+  const { fullName, email, username, password } = req.body;
 
-if (
-    [fullName,email,username,password].some((feild)=>{
-        feild?.trim() === ""
+  if (
+    [fullName, email, username, password].some((feild) => {
+      feild?.trim() === "";
     })
-) {
-    
-    throw new ApiError(400,"all fields are required")
+  ) {
+    throw new ApiError(400, "all fields are required");
+  }
+
+  //check mark for checking the user exists or not
+ const  existedUser= User.findOne(
+    {
+        $or: [{username},{email}]
+    }
+)
+  
+
+
+if (existedUser) {
+    throw new ApiError("409","User Already Exists")
+}
+// for checking image file is present or not
+
+const avatarLocalPath= req.files?.avatar[0]?.path
+
+const coverImageLocalPath= req.files?.coverImage[0]?.path
+
+if (!avatarLocalPath) {
+  throw new ApiError("409","avatar image not found")
 }
 
-
-
- 
 
 });
 
