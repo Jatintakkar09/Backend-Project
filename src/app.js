@@ -25,14 +25,12 @@ app.use(cookieParser())
 // routes import
 import userRouter from './routes/user.routes.js'
 
-import SampleRoute from './routes/sample.route.js'
-
 // routes declaration
 
 // app.get   yaha nahi krna kyuki router seprate hai middlewear lana padega
  app.use("/api/v1/users", userRouter)
 
- app.use("/api/v1/sample",SampleRoute)
+
 
 export { app }
 

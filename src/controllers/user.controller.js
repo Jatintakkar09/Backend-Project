@@ -1,4 +1,5 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
+import {ApiError} from "../utils/ApiError.js"
 
 //  things needed for registering a user or checkpoints
 
@@ -13,12 +14,22 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 // return response or error
 
 
+
 const registerUser = asyncHandler(async (req, res) => {
  const {fullName,email,username,password}=req.body
- console.log("email:", email);
-res.status(200).json({
-    message:"ok"
-})
+
+if (
+    [fullName,email,username,password].some((feild)=>{
+        feild?.trim() === ""
+    })
+) {
+    
+    throw new ApiError(400,"all fields are required")
+}
+
+
+
+ 
 
 });
 
