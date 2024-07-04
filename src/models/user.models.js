@@ -61,18 +61,19 @@ userSchema.pre("save", async function (next) {
 
 // methods creation
 
-userSchema.methods.ispasswordCorrect = async function (password) {
-  return await bcrypt.compare(password, this.password);
+userSchema.methods.isPasswordCorrect =async function (password) {
+  return bcrypt.compare(password, this.password);
 };
+
 // the above is a way in which the userdata that password is provided
 //is similar to the password that is saved
 
 // making methods to make access tokens and refresh tokens
-userSchema.methods.generateAccessTokens = function () {
+userSchema.methods.generateAccessTokens =function () {
   return jwt.sign(
     {
       _id: this._id,
-      username: thus.username,
+      username: this.username,
       email: this.email,
       fullName: this.fullName,
     },
@@ -83,7 +84,7 @@ userSchema.methods.generateAccessTokens = function () {
   );
 };
 
-userSchema.methods.generateRefreshTokens = function () {
+userSchema.methods.generateRefreshTokens =function () {
   return jwt.sign(
     {
       _id: this._id,
