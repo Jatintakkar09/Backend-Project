@@ -19,7 +19,8 @@ router.route("/register").post(
 router.route("/login").post(upload.fields([]),loginUser)
 
 // secured route
-// why they are secured routes bcz they cant be accessed without loggeg in
+// why they are secured routes bcz they cant be accessed without logged in 
+
 
 
 router.route("/logout").post(verifyJWT, logoutUser)
